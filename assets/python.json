@@ -1,0 +1,88 @@
+[
+    {
+        "1": "What does the shortcut 'Ctrl + C' do?",
+        "2": "Which shortcut is used to undo the last action?",
+        "3": "What is the purpose of the shortcut 'Ctrl + P'?",
+        "4": "Which shortcut is used to select all content in a document?",
+        "5": "What does 'Ctrl + F' allow you to do?",
+        "6": "Which shortcut is used to open a new document or window?",
+        "7": "What does 'Ctrl + X' do?",
+        "8": "Which shortcut allows you to switch between open applications or windows?",
+        "9": "What does 'Ctrl + S' help you with?",
+        "10": "Which shortcut is used to close the current window on a Windows system?"
+    },
+    {
+        "1": {
+            "a": "Cut",
+            "b": "Paste",
+            "c": "Copy",
+            "d": "Undo"
+        },
+        "2": {
+            "a": "Ctrl + Z",
+            "b": "Ctrl + V",
+            "c": "Ctrl + S",
+            "d": "Ctrl + X"
+        },
+        "3": {
+            "a": "Print",
+            "b": "Paste",
+            "c": "Save",
+            "d": "New Document"
+        },
+        "4": {
+            "a": "Ctrl + A",
+            "b": "Ctrl + S",
+            "c": "Ctrl + F",
+            "d": "Ctrl + N"
+        },
+        "5": {
+            "a": "Find",
+            "b": "Replace",
+            "c": "Center align",
+            "d": "Left align"
+        },
+        "6": {
+            "a": "Ctrl + O",
+            "b": "Ctrl + N",
+            "c": "Ctrl + P",
+            "d": "Ctrl + S"
+        },
+        "7": {
+            "a": "Paste",
+            "b": "Cut",
+            "c": "Copy",
+            "d": "Save"
+        },
+        "8": {
+            "a": "Alt + Tab",
+            "b": "Ctrl + Alt + Delete",
+            "c": "Cmd + Space",
+            "d": "Windows Key + D"
+        },
+        "9": {
+            "a": "Save",
+            "b": "Select All",
+            "c": "Swith Applications",
+            "d": "Close window"
+        },
+        "10": {
+            "a": "Alt + F4",
+            "b": "Cmd + W",
+            "c": "Ctrl + Shift + Esc",
+            "d": "Ctrl + Alt + Delete"
+        }
+    },
+    {
+        "1": "Copy",
+        "2": "Ctrl + Z",
+        "3": "Print",
+        "4": "Ctrl + A",
+        "5": "Find",
+        "6": "Ctrl + N",
+        "7": "Cut",
+        "8": "Alt + Tab",
+        "9": "Save",
+        "10": "Alt + F4"
+    }
+]

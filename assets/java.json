@@ -1,0 +1,88 @@
+[
+    {
+        "1": "What is the primary function of a monitor? 1",
+        "2": "Which interface is commonly used to connect a monitor to a computer? 2",
+        "3": "What is the primary function of a keyboard? 3",
+        "4": "Which keys on the keyboard are often used for quick access functions like copy and paste? 4",
+        "5": "What does a mouse primarily allow users to control on a computer? 5",
+        "6": "Which component produces hard copies of electronic documents on paper? 6",
+        "7": "What function does the Central Processing Unit (CPU) perform related to arithmetic? 7",
+        "8": "Which memory in the CPU stores frequently accessed data for quick retrieval? 8",
+        "9": "How would you connect a modern printer to a computer without using a cable? 9",
+        "10": "What determines the CPU's processing speed? 10"
+    },
+    {
+        "1": {
+            "a": "Typing text",
+            "b": "Playing music",
+            "c": "Displaying visual information",
+            "d": "Storing files"
+        },
+        "2": {
+            "a": "Bluetooth",
+            "b": "HDMI",
+            "c": "Wi-Fi",
+            "d": "Ethernet"
+        },
+        "3": {
+            "a": "Displaying image",
+            "b": "Inputting text and commands",
+            "c": "Scrolling web pages",
+            "d": "Playing games"
+        },
+        "4": {
+            "a": "Navigation keys",
+            "b": "Function keys",
+            "c": "Alphanumeric keys",
+            "d": "Special characters"
+        },
+        "5": {
+            "a": "Volume",
+            "b": "Brightness",
+            "c": "On-Screen cursor",
+            "d": "Resolution"
+        },
+        "6": {
+            "a": "Monitor",
+            "b": "CPU",
+            "c": "Keyboard",
+            "d": "Printer"
+        },
+        "7": {
+            "a": "Playing games",
+            "b": "Managing data flow",
+            "c": "Performing calculations",
+            "d": "Connecting to the internet"
+        },
+        "8": {
+            "a": "Random Access Memory",
+            "b": "Cache Memory",
+            "c": "Hard Disk Drive",
+            "d": "Optical Disk Drive"
+        },
+        "9": {
+            "a": "Through HDMI",
+            "b": "Via Bluetooth",
+            "c": "Using VGA cable",
+            "d": "With a USB-C connector"
+        },
+        "10": {
+            "a": "Refresh rate",
+            "b": "Color accuracy",
+            "c": "Clock speed",
+            "d": "Resolution"
+        }
+    },
+    {
+        "1": "Displaying visual information",
+        "2": "HDMI",
+        "3": "Inputting text and commands",
+        "4": "Function keys",
+        "5": "On-Screen cursor",
+        "6": "Printer",
+        "7": "Performing calculations",
+        "8": "Cache Memory",
+        "9": "Via Bluetooth",
+        "10": "Clock speed"
+    }
+]
