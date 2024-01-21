@@ -1,0 +1,52 @@
+[
+  {
+    "question":"What does the shortcut 'Ctrl + C' do?",
+    "options": ["Cut", "Paste", "Copy", "Undo"],
+    "answer": "Copy"
+  },
+  {
+    "question": "Which shortcut is used to undo the last action?",
+    "options": ["Ctrl + Z", "Ctrl + V", "Ctrl + S", "Ctrl + X"],
+    "answer": "HCtrl + Z"
+  },
+  {
+    "question": "What is the purpose of the shortcut 'Ctrl + P'?",
+    "options": ["Print", "Paste", "Save", "New Document"],
+    "answer": "Print"
+  },
+  {
+    "question": "Which shortcut is used to select all content in a document?",
+    "options": ["Ctrl + A", "Ctrl + S", "Ctrl + F", "Ctrl + N"],
+    "answer": "Ctrl + A"
+  },
+  {
+    "question": "What does 'Ctrl + F' allow you to do?",
+    "options": ["Find", "Replace", "Center alignr", "Left align"],
+    "answer": "Find"
+  },
+  {
+    "question": "Which shortcut is used to open a new document or window?",
+    "options": ["Ctrl + O", "Ctrl + N", "Ctrl + P", "Ctrl + S"],
+    "answer": "Ctrl + N"
+  },
+  {
+    "question": "What does 'Ctrl + X' do?",
+    "options": ["Paste", "Cut", "Copy", "Save"],
+    "answer": "Cut"
+  },
+  {
+    "question": "Which shortcut allows you to switch between open applications or windows?",
+    "options": ["Alt + Tab", "Ctrl + Alt + Delete", "Cmd + Space", "Windows Key + D"],
+    "answer": "Alt + Tab"
+  },
+  {
+    "question": "What does 'Ctrl + S' help you with?",
+    "options": ["Save", "Select All", "Switch Applications", "Close window"],
+    "answer": "Save"
+  },
+  {
+    "question": "Which shortcut is used to close the current window on a Windows system?",
+    "options": ["Ctrl + Shift + Esc", "Alt + F4", "Cmd + W", "Ctrl + Alt + Delete"],
+    "answer": "Alt + F4"
+  }
+]
