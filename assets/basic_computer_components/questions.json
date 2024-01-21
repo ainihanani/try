@@ -1,0 +1,52 @@
+[
+  {
+    "question":"What is the primary function of a monitor?",
+    "options": ["Typing text", "Playing music", "Displaying visual information", "Storing files"],
+    "answer": "Displaying visual information"
+  },
+  {
+    "question": "Which interface is commonly used to connect a monitor to a computer?",
+    "options": ["Bluetooth", "HDMI", "Wi-Fi", "Ethernet"],
+    "answer": "HDMI"
+  },
+  {
+    "question": "What is the primary function of a keyboard?",
+    "options": ["Displaying image", "Inputting text and commands", "Scrolling web pages", "Playing games"],
+    "answer": "Inputting text and commands"
+  },
+  {
+    "question": "Which keys on the keyboard are often used for quick access functions like copy and paste?",
+    "options": ["Navigation keys", "Function keys", "Alphanumeric keys", "Special characters"],
+    "answer": "Function keys"
+  },
+  {
+    "question": "What does a mouse primarily allow users to control on a computer?",
+    "options": ["Volume", "Brightness", "On-Screen cursor", "Resolution"],
+    "answer": "On-Screen cursor"
+  },
+  {
+    "question": "Which component produces hard copies of electronic documents on paper?",
+    "options": ["Monitor", "CPU", "Keyboard", "Printer"],
+    "answer": "Printer"
+  },
+  {
+    "question": "What function does the Central Processing Unit (CPU) perform related to arithmetic?",
+    "options": ["Playing games", "Managing data flow", "Performing calculations", "Connecting to the internet"],
+    "answer": "Performing calculations"
+  },
+  {
+    "question": "Which memory in the CPU stores frequently accessed data for quick retrieval?",
+    "options": ["Random Access Memory", "Cache Memory", "Hard Disk Drive", "Optical Disk Drive"],
+    "answer": "Cache Memory"
+  },
+  {
+    "question": "How would you connect a modern printer to a computer without using a cable?",
+    "options": ["Through HDMI", "Via Bluetooth", "Using VGA cable", "With a USB-C connector"],
+    "answer": "Via Bluetooth"
+  },
+  {
+    "question": "What determines the CPU's processing speed?",
+    "options": ["Refresh rate", "Color accuracy", "Clock speed", "Resolution"],
+    "answer": "Clock speed"
+  }
+]

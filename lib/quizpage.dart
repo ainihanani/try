@@ -1,62 +1,24 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:learn_apps/resultpage.dart';
 
-class getjson extends StatelessWidget {
-  String langname;
-  getjson(this.langname);
-  late String assettoload;  // Declare as late
-
-   void setasset() {
-    if (langname == "Quiz Basic Shortcut Keyboard") {
-      assettoload = "assets/python.json";
-    } else if (langname == "Quiz Basic Computer Components") {
-      assettoload = "assets/java.json";
-    } else {
-      // For any other language name, default to Python for now.
-      assettoload = "assets/python.json";
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    setasset();
-    return FutureBuilder(
-      future: DefaultAssetBundle.of(context).loadString(assettoload, cache: false),
-      builder: (context, snapshot) {
-        List mydata = json.decode(snapshot.data.toString());
-        if (mydata == null) {
-          return Scaffold(
-            body: Center(
-              child: Text("Loading"),
-            ),
-          );
-        } else {
-          return quizpage(key: UniqueKey(), mydata: mydata); // Add key here
-        }
-      },
-    );
-  }
-}
-
-class quizpage extends StatefulWidget {
+class QuizPage extends StatefulWidget {
   final List mydata;
 
-  quizpage({required Key key, required this.mydata}) : super(key: key);
+  QuizPage({super.key, required this.mydata});
 
   @override
-  _quizpageState createState() => _quizpageState(mydata);
+  _QuizPageState createState() => _QuizPageState(mydata);
 }
 
-class _quizpageState extends State<quizpage> {
-  final List mydata;
+class _QuizPageState extends State<QuizPage> {
+  final List myData;
 
-  _quizpageState(this.mydata);
+  _QuizPageState(this.myData);
 
-  Color colortoshow = Colors.indigoAccent;
+  Color colorToShow = Colors.indigoAccent;
   Color right = Colors.green;
   Color wrong = Colors.red;
   int marks = 0;
@@ -64,71 +26,72 @@ class _quizpageState extends State<quizpage> {
   bool disableAnswer = false;
   int j = 1;
   int timer = 30;
-  String showtimer = "30";
-  late List<int> random_array;  // Declare as late
+  String showTimer = "30";
+  late List<int> randomArray; // Declare as late
 
-  Map<String, Color> btncolor = {
+  Map<String, Color> btnColor = {
     "a": Colors.indigoAccent,
     "b": Colors.indigoAccent,
     "c": Colors.indigoAccent,
     "d": Colors.indigoAccent,
   };
 
-  bool canceltimer = false;
+  bool cancelTimer = false;
 
-  void genrandomarray() {
+  @override
+  void initState() {
+    super.initState();
+    startTimer();
+    generateRandomArray();
+  }
+
+  void generateRandomArray() {
     var distinctIds = <int>[];
     var rand = Random();
     for (int i = 0;;) {
       distinctIds.add(rand.nextInt(10));
-      random_array = distinctIds.toSet().toList();
-      if (random_array.length < 10) {
+      randomArray = distinctIds.toSet().toList();
+      if (randomArray.length < 10) {
         continue;
       } else {
         break;
       }
     }
-    print(random_array);
+    print(randomArray);
   }
 
-  @override
-  void initState() {
-    super.initState();
-    starttimer();
-    genrandomarray();
-  }
-
-  void starttimer() {
-    const onesec = Duration(seconds: 1);
-    Timer.periodic(onesec, (Timer t) {
+  void startTimer() {
+    const oneSec = Duration(seconds: 1);
+    Timer.periodic(oneSec, (Timer t) {
       if (timer < 1) {
         t.cancel();
-        nextquestion();
-      } else if (canceltimer == true) {
+        nextQuestion();
+      } else if (cancelTimer == true) {
         t.cancel();
       } else {
         timer = timer - 1;
       }
       setState(() {
-        showtimer = timer.toString();
+        showTimer = timer.toString();
       });
     });
   }
 
-  void nextquestion() {
-    canceltimer = false;
+  void nextQuestion() {
+    cancelTimer = false;
     timer = 30;
     if (j < 10) {
-      i = random_array[j];
+      i = randomArray[j];
       j++;
     } else {
-    Navigator.of(context).pushReplacement(MaterialPageRoute(
-  builder: (context) => resultpage(key: UniqueKey(), marks: marks), // Added UniqueKey()
-));
-
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) {
+          return resultpage(key: UniqueKey(), marks: marks);
+        }, // Added UniqueKey()
+      ));
     }
     setState(() {
-      btncolor = {
+      btnColor = {
         "a": Colors.indigoAccent,
         "b": Colors.indigoAccent,
         "c": Colors.indigoAccent,
@@ -136,52 +99,31 @@ class _quizpageState extends State<quizpage> {
       };
       disableAnswer = false;
     });
-    starttimer();
+    startTimer();
   }
 
-  void checkanswer(String k) {
-    if (mydata[2][i.toString()] == mydata[1][i.toString()][k]) {
+  void checkAnswer(String k) {
+    if (myData[2][i.toString()] == myData[1][i.toString()][k]) {
       marks = marks + 5;
-      colortoshow = right;
+      colorToShow = right;
     } else {
-      colortoshow = wrong;
+      colorToShow = wrong;
     }
     setState(() {
-      btncolor[k] = colortoshow;
-      canceltimer = true;
+      btnColor[k] = colorToShow;
+      cancelTimer = true;
       disableAnswer = true;
     });
-    Timer(Duration(seconds: 2), nextquestion);
-  }
-
-  Widget choicebutton(String k) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-      child: MaterialButton(
-        onPressed: () => checkanswer(k),
-        child: Text(
-          mydata[1][i.toString()][k],
-          style: TextStyle(
-            color: Colors.white,
-            fontFamily: "Alike",
-            fontSize: 16.0,
-          ),
-          maxLines: 1,
-        ),
-        color: btncolor[k],
-        splashColor: Colors.indigo[700],
-        highlightColor: Colors.indigo[700],
-        minWidth: 200.0,
-        height: 45.0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-      ),
-    );
+    Timer(Duration(seconds: 2), nextQuestion);
   }
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
+
+    print(myData[0][i.toString()]);
+    print('######################');
     return WillPopScope(
       onWillPop: () async {
         Navigator.of(context).pop();
@@ -193,11 +135,11 @@ class _quizpageState extends State<quizpage> {
             Expanded(
               flex: 3,
               child: Container(
-                padding: EdgeInsets.all(15.0),
+                padding: const EdgeInsets.all(15.0),
                 alignment: Alignment.bottomLeft,
                 child: Text(
-                  mydata[0][i.toString()],
-                  style: TextStyle(
+                  myData[0][i.toString()],
+                  style: const TextStyle(
                     fontSize: 16.0,
                     fontFamily: "Satisfy",
                   ),
@@ -208,16 +150,14 @@ class _quizpageState extends State<quizpage> {
               flex: 6,
               child: AbsorbPointer(
                 absorbing: disableAnswer,
-                child: Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      choicebutton('a'),
-                      choicebutton('b'),
-                      choicebutton('c'),
-                      choicebutton('d'),
-                    ],
-                  ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    choiceButton('a'),
+                    choiceButton('b'),
+                    choiceButton('c'),
+                    choiceButton('d'),
+                  ],
                 ),
               ),
             ),
@@ -227,8 +167,8 @@ class _quizpageState extends State<quizpage> {
                 alignment: Alignment.topCenter,
                 child: Center(
                   child: Text(
-                    showtimer,
-                    style: TextStyle(
+                    showTimer,
+                    style: const TextStyle(
                       fontSize: 35.0,
                       fontWeight: FontWeight.w700,
                       fontFamily: 'Times New Roman',
@@ -238,6 +178,31 @@ class _quizpageState extends State<quizpage> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget choiceButton(String k) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+      child: MaterialButton(
+        onPressed: () => checkAnswer(k),
+        color: btnColor[k],
+        splashColor: Colors.indigo[700],
+        highlightColor: Colors.indigo[700],
+        minWidth: 200.0,
+        height: 45.0,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+        child: Text(
+          myData[1][i.toString()][k],
+          style: const TextStyle(
+            color: Colors.white,
+            fontFamily: "Alike",
+            fontSize: 16.0,
+          ),
+          maxLines: 1,
         ),
       ),
     );

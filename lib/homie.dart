@@ -1,6 +1,12 @@
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:learn_apps/quizpage.dart';
+import 'package:learn_apps/models/quiz_model.dart';
+
+import 'widgets/custom_card.dart';
 
 class homepage extends StatefulWidget {
   @override
@@ -8,119 +14,96 @@ class homepage extends StatefulWidget {
 }
 
 class _homepageState extends State<homepage> {
+  late var db;
 
-  List<String> images = [
-    "assets/icons/react.jpg",
-    "assets/icons/photography.jpg",
-   
-  ];
+  @override
+  void initState() {
+    super.initState();
 
-  List<String> des = [
-     "Students will be quizzed on their familiarity with common shortcuts used for tasks like copying, pasting, saving, navigating, and managing documents or windows. If you think you have learn..\nJust Test Yourself !!",
-    "This set of questions focuses on understanding fundamental hardware components that constitute a computer system.\nIf You think you have learnt it.. \nJust test yourself !!",
-   
-    
-  ];
+    /// Initialize an instance of Cloud Firestore
+    db = FirebaseFirestore.instance;
 
-  Widget customcard(String langname, String image, String des){
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        vertical: 20.0,
-        horizontal: 30.0,
-      ),
-      child: InkWell(
-        onTap: (){
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-            // in changelog 1 we will pass the langname name to ther other widget class
-            // this name will be used to open a particular JSON file 
-            // for a particular language
-            builder: (context) => getjson(langname),
-          ));
-        },
-        child: Material(
-          color: Colors.indigoAccent,
-          elevation: 10.0,
-          borderRadius: BorderRadius.circular(25.0),
-          child: Container(
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 10.0,
-                  ),
-                  child: Material(
-                    elevation: 5.0,
-                    borderRadius: BorderRadius.circular(100.0),
-                    child: Container(
-                      // changing from 200 to 150 as to look better
-                      height: 150.0,
-                      width: 150.0,
-                      child: ClipOval(
-                        child: Image(
-                          fit: BoxFit.cover,
-                          image: AssetImage(
-                            image,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Center(
-                  child: Text(
-                    langname,
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      color: Colors.white,
-                      fontFamily: "Quando",
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(20.0),
-                  child: Text(
-                    des,
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      color: Colors.white,
-                      fontFamily: "Alike"
-                    ),
-                    maxLines: 5,
-                    textAlign: TextAlign.justify,
-                  ),
-                  
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
+    /// Read data from the firebase to get quiz type
+    ///   db.collection("quiz_type").get().then((event) {
+    ///   for (var doc in event.docs) {
+    ///     print("${doc.id} => ${doc.data()}");
+    ///     print('################');
+    ///   }
+    /// });
+
+    /// Add data
+    ///     db.collection("q_basic_computer_components")
+    ///     .set(questions)
+    ///     .then((documentSnapshot) =>
+    ///         print("Added Data with ID: ${documentSnapshot.id}"));
+  }
+
+  Future<void> addQuestionsToFirestore() async {
+    try {
+      // Read the JSON file
+      String jsonString = await DefaultAssetBundle.of(context)
+          .loadString('assets/basic_computer_components/questions.json');
+
+      // Parse the JSON string
+      List<dynamic> questionsData = json.decode(jsonString);
+
+      // Reference to the Firestore collection
+      CollectionReference questionsCollection = FirebaseFirestore.instance
+          .collection('questions_basic_computer_comp');
+
+      // Loop through the questionsData and add each question to Firestore
+      for (int i = 0; i < questionsData.length; i++) {
+        // Set a custom ID for each document (e.g., using the index)
+        String documentId = 'question_$i';
+
+        // Create a reference with the custom ID
+        DocumentReference documentReference =
+            questionsCollection.doc(documentId);
+
+        // Set the data for the document
+        await documentReference.set({
+          'question': questionsData[i]['question'],
+          'options': questionsData[i]['options'],
+          'answer': questionsData[i]['answer'],
+        });
+      }
+
+      print('Questions added to Firestore successfully');
+    } catch (error) {
+      print('Error adding questions to Firestore: $error');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitDown, DeviceOrientation.portraitUp
-    ]);
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
+
+    final quiz = FirebaseFirestore.instance
+        .collection('quiz_type')
+        .withConverter<Quiz>(
+            fromFirestore: (snapshot, _) => Quiz.fromJson(snapshot.data()!),
+            toFirestore: (quiz, _) => quiz.toJson());
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Quizstar",
-          style: TextStyle(
-            fontFamily: "Quando",
+        appBar: AppBar(
+          title: const Text(
+            "Quizstar",
+            style: TextStyle(
+              fontFamily: "Quando",
+            ),
           ),
         ),
-      ),
-      body: ListView(
-        children: <Widget>[
-          customcard("Quiz Basic Shortcut Keyboard", images[0], des[0]),
-          customcard("Quiz Basic Computer Components", images[1], des[1]),
-        
-        ],
-      ),
-    );
+        body: FirestoreListView<Quiz>(
+          query: quiz,
+          itemBuilder: (context, snapshot) {
+            Quiz quizType = snapshot.data();
+            return CustomCard(
+              langName: quizType.title,
+              image: quizType.images,
+              description: quizType.description,
+            );
+          },
+        ));
   }
 }
-

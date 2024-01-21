@@ -31,28 +31,7 @@ class HomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    const Text(
-                      "Welcome",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      "WHERE KIDS LOVE LEARNING BASIC COMPUTER COMPONENTS ",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.grey[700],
-                        fontSize: 15,
-                      ),
-                    )
-                  ],
-                ),
+                _buildWelcomeHeader(),
                 const Text(
                   "Welcome to an exciting adventure into the world of computer components!",
                   style: TextStyle(
@@ -79,48 +58,77 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                Column(
-                  children: <Widget>[
-                    MaterialButton(
-                      minWidth: double.infinity,
-                      height: 60,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const FeaturedScreen(),
-                          ),
-                        );
-                      },
-                      shape: const RoundedRectangleBorder(),
-                      child: const Text(
-                        "Start",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-
-                            builder: (context) => LoginPage(updateUserProfile: () {}),
-                          ),
-                        );
-                      },
-                      child: const Text('Sign Out'),
-                    ),
-                  ],
-                )
+                _buildColumnButton(context)
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  Widget _buildWelcomeHeader() {
+    return Column(
+                children: <Widget>[
+                  const Text(
+                    "Welcome",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    "WHERE KIDS LOVE LEARNING BASIC COMPUTER COMPONENTS ",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.grey[700],
+                      fontSize: 15,
+                    ),
+                  )
+                ],
+              );
+  }
+
+  Widget _buildColumnButton(BuildContext context) {
+    return Column(
+                children: <Widget>[
+                  MaterialButton(
+                    minWidth: double.infinity,
+                    height: 60,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const FeaturedScreen(),
+                        ),
+                      );
+                    },
+                    shape: const RoundedRectangleBorder(),
+                    child: const Text(
+                      "Start",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+
+                          builder: (context) => LoginPage(updateUserProfile: () {}),
+                        ),
+                      );
+                    },
+                    child: const Text('Sign Out'),
+                  ),
+                ],
+              );
   }
 }
